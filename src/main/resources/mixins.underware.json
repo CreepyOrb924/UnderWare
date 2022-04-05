@@ -1,0 +1,12 @@
+{
+  "compatibilityLevel": "JAVA_8",
+  "package": "io.github.underware.mixin",
+  "mixins": [
+    "network.NetworkManagerMixin"
+  ],
+  "client": [
+    "client.MinecraftMixin",
+    "client.entity.EntityPlayerSPMixin"
+  ],
+  "server": []
+}
