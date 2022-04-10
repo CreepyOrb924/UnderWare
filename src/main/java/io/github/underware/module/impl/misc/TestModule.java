@@ -11,8 +11,6 @@ import org.lwjgl.input.Keyboard;
 
 public class TestModule extends ModuleBase {
 
-    // TODO: 3/28/22 This setting isn't being saved to the config.
-    //  I am assuming that the reflection to access this field isn't working correctly. Test it.
     private final BooleanSetting booleanSetting = new BooleanSetting("Boolean", "Boolean setting.", true);
     public final StringSetting stringSetting = new StringSetting("String", "String setting.", "FooBar");
 

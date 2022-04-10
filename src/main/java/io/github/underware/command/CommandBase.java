@@ -1,9 +1,13 @@
 package io.github.underware.command;
 
+import com.mojang.realmsclient.gui.ChatFormatting;
+import io.github.underware.util.chat.ChatUtil;
 import net.minecraft.client.Minecraft;
 
 import java.util.Arrays;
 
+// TODO: 4/6/22 Tab complete commands.
+// TODO: 4/6/22 Change chat color when you start with prefix. (AKA GUI Elements for commands.)
 public abstract class CommandBase {
 
     private final String name, description, usage;
@@ -18,6 +22,10 @@ public abstract class CommandBase {
         this.usage = usage;
     }
 
+    /**
+     * @param args The message arguments not including the command name.
+     * @throws ArrayIndexOutOfBoundsException When trying to find an argument that isn't there.
+     */
     public abstract void execute(String[] args) throws ArrayIndexOutOfBoundsException;
 
     public String getName() {
@@ -36,6 +44,27 @@ public abstract class CommandBase {
 
     public String[] getAlias() {
         return alias;
+    }
+
+    public void sendUsage() {
+        ChatUtil.sendClientMessage(getUsage());
+    }
+
+    public void sendUsageFormatted() {
+        ChatUtil.sendClientMessage(getUsageFormatted());
+    }
+
+    public String getUsageFormatted() {
+        return ChatFormatting.RED +
+                getName() +
+                ChatFormatting.RESET +
+                " \u23d0 " +
+                ChatFormatting.GREEN +
+                getDescription() +
+                ChatFormatting.RESET +
+                " \u23d0 " +
+                ChatFormatting.BLUE +
+                getUsage();
     }
 
     @Override

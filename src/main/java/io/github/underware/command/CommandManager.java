@@ -7,6 +7,7 @@ import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public enum CommandManager {
 
@@ -41,16 +42,22 @@ public enum CommandManager {
         }
     }
 
-    private CommandBase getCommand(Class<? extends CommandBase> aClass) {
+    public List<CommandBase> getCommandsAlphabetically() {
+        return commands.stream()
+                .sorted((c1, c2) -> c1.getName().compareToIgnoreCase(c2.getName()))
+                .collect(Collectors.toList());
+    }
+
+    public CommandBase getCommand(Class<? extends CommandBase> aClass) {
         return commands.stream()
                 .filter(module -> module.getClass() == aClass)
                 .findAny()
                 .orElseThrow(() -> new RuntimeException("Unable to find Command: " + aClass + "."));
     }
 
-    private CommandBase getCommand(String commandName) {
+    public CommandBase getCommand(String commandName) throws RuntimeException {
         return commands.stream()
-                .filter(command -> command.getName().equalsIgnoreCase(commandName))
+                .filter(command -> command.getName().equalsIgnoreCase(commandName) || commandAliasMatchString(command, commandName))
                 .findAny()
                 .orElseThrow(() -> new RuntimeException("Unable to find Command: " + commandName + "."));
     }
@@ -60,7 +67,14 @@ public enum CommandManager {
                 .filter(command -> command.getName().equalsIgnoreCase(args[0])
                         || commandAliasMatchString(command, args[0]))
                 .findAny()
-                .ifPresent(commandBase -> commandBase.execute(args));
+                .ifPresent(commandBase -> {
+                            try {
+                                commandBase.execute(dropFirstString(args));
+                            } catch (ArrayIndexOutOfBoundsException e) {
+                                e.printStackTrace();
+                            }
+                        }
+                );
 
     }
 
@@ -68,4 +82,9 @@ public enum CommandManager {
         return Arrays.stream(command.getAlias()).anyMatch(alias -> alias.equalsIgnoreCase(string));
     }
 
+    private String[] dropFirstString(String[] input) {
+        String[] strings = new String[input.length - 1];
+        System.arraycopy(input, 1, strings, 0, input.length - 1);
+        return strings;
+    }
 }
