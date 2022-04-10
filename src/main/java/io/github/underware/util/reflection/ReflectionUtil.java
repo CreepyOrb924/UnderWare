@@ -14,6 +14,10 @@ import java.util.Enumeration;
 import java.util.jar.JarEntry;
 import java.util.jar.JarFile;
 
+/**
+ * @author Madmegsox1
+ * @since 14/06/2021
+ */
 public class ReflectionUtil {
 
     /**
