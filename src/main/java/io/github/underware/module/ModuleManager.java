@@ -1,12 +1,14 @@
 package io.github.underware.module;
 
 import io.github.underware.UnderWare;
+import io.github.underware.module.setting.SettingBase;
 import io.github.underware.util.reflection.ReflectionUtil;
 
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public enum ModuleManager {
 
@@ -45,6 +47,12 @@ public enum ModuleManager {
         this.modules.addAll(Arrays.asList(modules));
     }
 
+    public List<ModuleBase> getModulesAlphabetically() {
+        return modules.stream()
+                .sorted((m1, m2) -> m1.getName().compareToIgnoreCase(m2.getName()))
+                .collect(Collectors.toList());
+    }
+
     public ModuleBase getModule(Class<? extends ModuleBase> aClass) {
         return modules.stream()
                 .filter(module -> module.getClass() == aClass)
@@ -57,6 +65,13 @@ public enum ModuleManager {
                 .filter(module -> module.getName().equalsIgnoreCase(moduleName))
                 .findAny()
                 .orElseThrow(() -> new RuntimeException("Unable to find Module: " + moduleName + "."));
+    }
+
+    public SettingBase<?> getSettingByName(ModuleBase module, String settingName) {
+        return module.getSettings().stream()
+                .filter(setting -> setting.getName().equalsIgnoreCase(settingName))
+                .findAny()
+                .orElseThrow(() -> new RuntimeException("Unable to find setting: " + settingName + '.'));
     }
 
     public void onKeyPress(int key) {

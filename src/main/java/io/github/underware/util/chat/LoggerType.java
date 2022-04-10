@@ -1,7 +1,7 @@
 package io.github.underware.util.chat;
 
 /**
- * Logger types for {@link ChatUtil#sendLogger(String, LoggerType)}.
+ * Logger types for {@link ChatUtil#sendLogger(LoggerType, String)}.
  */
 public enum LoggerType {
     DEBUG,
@@ -9,5 +9,5 @@ public enum LoggerType {
     FATAL,
     INFO,
     SUCCESS,
-    WARNING,
+    WARN,
 }

@@ -1,25 +1,42 @@
 package io.github.underware.command.impl;
 
+import com.mojang.realmsclient.gui.ChatFormatting;
 import io.github.underware.command.CommandBase;
 import io.github.underware.command.CommandManager;
 import io.github.underware.util.chat.ChatUtil;
 
+import java.util.List;
+
 public class HelpCommand extends CommandBase {
 
     public HelpCommand() {
-        super("Help", "Sends a list of all commands.", new String[]{"Commands", "Man"}, "");
+        super("Help", "Get help for a specific command.", new String[]{"Commands", "Man"}, "<command>");
     }
 
     @Override
     public void execute(String[] args) throws ArrayIndexOutOfBoundsException {
-        StringBuilder stringBuilder = new StringBuilder();
-        for (CommandBase command : CommandManager.INSTANCE.commands) {
-            stringBuilder.append(command.getName())
-                    .append(' ')
-                    .append(command.getUsage())
-                    .append('\n');
+        if (args.length == 1) {
+            try {
+                CommandManager.INSTANCE.getCommand(args[0]).sendUsageFormatted();
+            } catch (RuntimeException ignored) {
+            }
+        } else {
+            StringBuilder stringBuilder = new StringBuilder("\n" +
+                    ChatFormatting.RED + "Command" +
+                    ChatFormatting.RESET + " \u23d0 " +
+                    ChatFormatting.GREEN + "Description" +
+                    ChatFormatting.RESET + " \u2d30 " +
+                    ChatFormatting.BLUE + "Usage\n");
+
+            List<CommandBase> commandsAlphabetically = CommandManager.INSTANCE.getCommandsAlphabetically();
+            for (int i = 0; i < commandsAlphabetically.size(); i++) {
+                stringBuilder.append(commandsAlphabetically.get(i).getUsageFormatted());
+                if (i != commandsAlphabetically.size() - 1) {
+                    stringBuilder.append('\n');
+                }
+            }
+            ChatUtil.sendClientMessage(stringBuilder.toString());
         }
-        ChatUtil.sendClientMessage(stringBuilder.toString());
     }
 
 }
