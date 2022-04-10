@@ -14,7 +14,7 @@ public enum DirectoryManager {
 
     // Directories
     public final Path minecraftDirectoryPath = Minecraft.getMinecraft().gameDir.toPath().toAbsolutePath();
-    public final Path modDirectoryPath = Paths.get(minecraftDirectoryPath.toString(), UnderWare.MOD_ID);
+    public final Path modDirectoryPath = Paths.get(minecraftDirectoryPath.toString(), UnderWare.NAME);
     public final Path moduleDirectoryPath = Paths.get(modDirectoryPath.toString(), "module");
 
     // Files
