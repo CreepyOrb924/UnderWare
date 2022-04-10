@@ -11,7 +11,7 @@ import java.util.Map;
 
 @IFMLLoadingPlugin.MCVersion("1.12.2")
 @IFMLLoadingPlugin.Name("UnderWare")
-public final class FMLLoaderCore implements IFMLLoadingPlugin {
+public class FMLLoaderCore implements IFMLLoadingPlugin {
 
     @Override
     public String[] getASMTransformerClass() {

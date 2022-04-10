@@ -9,7 +9,7 @@ import org.apache.logging.log4j.Logger;
 import org.lwjgl.opengl.Display;
 
 @Mod(modid = UnderWare.MOD_ID, name = UnderWare.NAME, version = UnderWare.VERSION)
-public final class UnderWare {
+public class UnderWare {
 
     public static final String MOD_ID = "underware";
     public static final String NAME = "UnderWare";

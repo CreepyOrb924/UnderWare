@@ -9,7 +9,7 @@ import io.github.underware.module.ModuleManager;
 import java.io.FileReader;
 import java.util.List;
 
-public final class ModuleJsonStreamReader {
+public class ModuleJsonStreamReader {
 
     public void readJsonStream() {
         try (FileReader reader = new FileReader(DirectoryManager.INSTANCE.moduleFilePath.toFile())) {

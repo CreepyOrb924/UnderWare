@@ -6,7 +6,7 @@ import io.github.underware.module.ModuleBase;
 import io.github.underware.module.setting.SettingBase;
 import io.github.underware.module.setting.SettingValueParser;
 
-public final class ModuleDeserializer {
+public class ModuleDeserializer {
 
     private final ModuleBase module;
 

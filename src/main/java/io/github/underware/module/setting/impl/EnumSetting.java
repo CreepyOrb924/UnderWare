@@ -4,7 +4,7 @@ import io.github.underware.module.setting.SettingBase;
 
 import java.util.Arrays;
 
-public final class EnumSetting extends SettingBase<Enum<?>> {
+public class EnumSetting extends SettingBase<Enum<?>> {
 
     public EnumSetting(String name, String description, Enum<?> value) {
         super(name, description, value);

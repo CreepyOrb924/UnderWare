@@ -4,7 +4,7 @@ import net.minecraftforge.fml.common.eventhandler.Cancelable;
 import net.minecraftforge.fml.common.eventhandler.Event;
 
 @Cancelable
-public final class PlayerSendChatMessageEvent extends Event {
+public class PlayerSendChatMessageEvent extends Event {
 
     private String message;
 

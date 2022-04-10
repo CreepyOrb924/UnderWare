@@ -2,7 +2,7 @@ package io.github.underware.module.setting.impl;
 
 import io.github.underware.module.setting.SettingBase;
 
-public final class NumberSetting extends SettingBase<Number> {
+public class NumberSetting extends SettingBase<Number> {
 
     private final Number min, max, inc;
 

@@ -5,7 +5,7 @@ import io.github.underware.module.setting.SettingBase;
 
 import java.lang.reflect.Field;
 
-public final class ModuleSettingAccessor {
+public class ModuleSettingAccessor {
 
     private final ModuleBase module;
 

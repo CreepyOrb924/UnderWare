@@ -11,7 +11,7 @@ import org.spongepowered.asm.mixin.injection.ModifyArg;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(EntityPlayerSP.class)
-public final class EntityPlayerSPMixin {
+public class EntityPlayerSPMixin {
 
     private PlayerSendChatMessageEvent chatMessageEvent;
 

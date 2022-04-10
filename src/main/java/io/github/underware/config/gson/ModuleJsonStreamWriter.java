@@ -11,11 +11,12 @@ import java.util.List;
 
 import static io.github.underware.config.gson.GsonInstance.GSON;
 
-public final class ModuleJsonStreamWriter {
+public class ModuleJsonStreamWriter {
 
     public void writeJsonStream(List<ModuleBase> modules) {
         try (FileWriter fileWriter = new FileWriter(DirectoryManager.INSTANCE.moduleFilePath.toFile())) {
-            GSON.toJson(modules, new TypeToken<List<ModuleBase>>(){}.getType(), fileWriter);
+            GSON.toJson(modules, new TypeToken<List<ModuleBase>>() {
+            }.getType(), fileWriter);
         } catch (IOException e) {
             UnderWare.LOGGER.warn("Unable to save config file.");
             e.printStackTrace();
