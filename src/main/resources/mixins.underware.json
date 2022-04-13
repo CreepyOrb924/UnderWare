@@ -5,8 +5,7 @@
     "network.NetworkManagerMixin"
   ],
   "client": [
-    "client.MinecraftMixin",
-    "client.entity.EntityPlayerSPMixin"
+    "client.MinecraftMixin"
   ],
   "server": []
 }
