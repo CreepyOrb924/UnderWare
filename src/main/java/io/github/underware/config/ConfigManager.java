@@ -1,9 +1,9 @@
 package io.github.underware.config;
 
 import io.github.underware.UnderWare;
-import io.github.underware.config.gson.ModuleJsonStreamReader;
-import io.github.underware.config.gson.ModuleJsonStreamWriter;
 import io.github.underware.module.ModuleManager;
+import io.github.underware.module.config.ModuleJsonStreamReader;
+import io.github.underware.module.config.ModuleJsonStreamWriter;
 
 public enum ConfigManager {
 

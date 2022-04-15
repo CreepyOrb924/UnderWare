@@ -1,15 +1,17 @@
-package io.github.underware.config.gson;
+package io.github.underware.module.config;
 
 import com.google.gson.JsonObject;
 import com.google.gson.reflect.TypeToken;
 import io.github.underware.UnderWare;
 import io.github.underware.config.directory.DirectoryManager;
+import io.github.underware.config.gson.GsonInstance;
+import io.github.underware.config.gson.JsonStreamReader;
 import io.github.underware.module.ModuleManager;
 
 import java.io.FileReader;
 import java.util.List;
 
-public class ModuleJsonStreamReader {
+public class ModuleJsonStreamReader implements JsonStreamReader {
 
     public void readJsonStream() {
         try (FileReader reader = new FileReader(DirectoryManager.INSTANCE.moduleFilePath.toFile())) {
@@ -17,7 +19,7 @@ public class ModuleJsonStreamReader {
             }.getType());
             readModuleArray(jsonObjects);
         } catch (Exception e) {
-            UnderWare.LOGGER.warn("Unable to load config.");
+            UnderWare.LOGGER.warn("Unable to load modules.");
             e.printStackTrace();
         }
     }

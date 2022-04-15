@@ -1,4 +1,4 @@
-package io.github.underware.config.gson;
+package io.github.underware.module.config;
 
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
