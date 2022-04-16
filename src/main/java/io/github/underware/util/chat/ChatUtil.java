@@ -2,6 +2,7 @@ package io.github.underware.util.chat;
 
 import com.mojang.realmsclient.gui.ChatFormatting;
 import io.github.underware.UnderWare;
+import io.github.underware.core.Globals;
 import net.minecraft.client.Minecraft;
 import net.minecraft.util.text.TextComponentString;
 import org.apache.commons.lang3.StringUtils;
@@ -35,9 +36,8 @@ public class ChatUtil {
      * @param loggerType The {@link LoggerType} that the debug message will be.
      * @param message    The message that will be printed.
      */
-    // TODO: 4/6/22 Add a debug setting for the mod that will enable/disable these messages.
     public static void sendLogger(LoggerType loggerType, String message) {
-        if (mc.world == null || mc.player == null) {
+        if (mc.world == null || mc.player == null || !Globals.debug) {
             return;
         }
 

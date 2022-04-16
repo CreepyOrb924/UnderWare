@@ -1,6 +1,7 @@
 package io.github.underware.command;
 
 import com.mojang.realmsclient.gui.ChatFormatting;
+import io.github.underware.core.Globals;
 import io.github.underware.util.chat.ChatUtil;
 import net.minecraft.client.Minecraft;
 
@@ -37,7 +38,7 @@ public abstract class CommandBase {
     }
 
     public String getUsage() {
-        String finalUsage = CommandPrefix.prefix + name;
+        String finalUsage = Globals.prefix + name;
         if (usage != null) finalUsage += ' ' + usage;
         return finalUsage;
     }

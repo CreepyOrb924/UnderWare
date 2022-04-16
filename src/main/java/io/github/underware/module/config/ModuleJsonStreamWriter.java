@@ -10,7 +10,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.List;
 
-import static io.github.underware.config.gson.GsonInstance.GSON;
+import static io.github.underware.core.Globals.GSON;
 
 public class ModuleJsonStreamWriter implements JsonStreamWriter<ModuleBase> {
 

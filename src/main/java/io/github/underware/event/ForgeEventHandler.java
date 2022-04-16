@@ -1,6 +1,6 @@
 package io.github.underware.event;
 
-import io.github.underware.command.CommandPrefix;
+import io.github.underware.core.Globals;
 import io.github.underware.module.ModuleManager;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiChat;
@@ -22,8 +22,8 @@ public enum ForgeEventHandler {
     @SubscribeEvent
     public void onInputKeyInput(InputEvent.KeyInputEvent event) {
         if (Keyboard.getEventKeyState()) {
-            if (Keyboard.getEventCharacter() == CommandPrefix.prefix && mc.currentScreen == null) {
-                mc.displayGuiScreen(new GuiChat(String.valueOf(CommandPrefix.prefix)));
+            if (Keyboard.getEventCharacter() == Globals.prefix && mc.currentScreen == null) {
+                mc.displayGuiScreen(new GuiChat(String.valueOf(Globals.prefix)));
             }
 
             ModuleManager.INSTANCE.onKeyPress(Keyboard.getEventKey());
