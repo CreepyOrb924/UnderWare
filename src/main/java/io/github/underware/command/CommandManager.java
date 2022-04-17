@@ -3,7 +3,6 @@ package io.github.underware.command;
 import io.github.underware.UnderWare;
 import io.github.underware.util.reflection.ReflectionUtil;
 
-import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -22,20 +21,9 @@ public enum CommandManager {
 
     private void loadCommands() {
         try {
-            ArrayList<Class<?>> commandClasses = ReflectionUtil.getClassesForPackage("io.github.underware.command.impl");
-            commandClasses.spliterator().forEachRemaining(aClass -> {
-                if (!CommandBase.class.isAssignableFrom(aClass)) {
-                    return;
-                }
-                try {
-                    CommandBase command = (CommandBase) aClass.getConstructor().newInstance();
-                    commands.add(command);
-                    UnderWare.LOGGER.info("Loaded Command: {}.", command);
-                } catch (InvocationTargetException | InstantiationException | IllegalAccessException | NoSuchMethodException e) {
-                    UnderWare.LOGGER.error("Unable to create command class. [{}]", e.toString());
-                    e.printStackTrace();
-                }
-            });
+            ReflectionUtil.getAddClassesFromPackageToList("io.github.underware.command.impl", commands, CommandBase.class);
+
+            commands.forEach(command -> UnderWare.LOGGER.info("Loaded Command: {}.", command));
         } catch (ClassNotFoundException e) {
             UnderWare.LOGGER.error(e);
             e.printStackTrace();

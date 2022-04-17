@@ -4,7 +4,7 @@ import com.google.gson.JsonObject;
 import com.google.gson.reflect.TypeToken;
 import io.github.underware.UnderWare;
 import io.github.underware.config.directory.DirectoryManager;
-import io.github.underware.config.json.JsonStreamParser;
+import io.github.underware.config.jsonstream.JsonStreamParser;
 import io.github.underware.core.Globals;
 import io.github.underware.module.ModuleBase;
 import io.github.underware.module.ModuleManager;

@@ -2,7 +2,7 @@ package io.github.underware.core.config;
 
 import io.github.underware.UnderWare;
 import io.github.underware.config.directory.DirectoryManager;
-import io.github.underware.config.json.JsonStreamParser;
+import io.github.underware.config.jsonstream.JsonStreamParser;
 import io.github.underware.core.Globals;
 
 import java.io.FileReader;

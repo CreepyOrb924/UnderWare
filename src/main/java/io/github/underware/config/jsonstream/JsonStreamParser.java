@@ -1,4 +1,4 @@
-package io.github.underware.config.json;
+package io.github.underware.config.jsonstream;
 
 public interface JsonStreamParser {
 
