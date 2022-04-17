@@ -38,7 +38,7 @@ public abstract class CommandBase {
     }
 
     public String getUsage() {
-        String finalUsage = Globals.prefix + name;
+        String finalUsage = Globals.INSTANCE.prefix + name;
         if (usage != null) finalUsage += ' ' + usage;
         return finalUsage;
     }

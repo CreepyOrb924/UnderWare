@@ -14,13 +14,13 @@ public class DebugModule extends ModuleBase {
     public void onEnable() {
         super.onEnable();
 
-        Globals.debug = true;
+        Globals.INSTANCE.debug = true;
     }
 
     @Override
     public void onDisable() {
         super.onDisable();
 
-        Globals.debug = false;
+        Globals.INSTANCE.debug = false;
     }
 }

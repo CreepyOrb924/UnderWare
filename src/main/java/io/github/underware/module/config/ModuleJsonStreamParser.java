@@ -4,23 +4,36 @@ import com.google.gson.JsonObject;
 import com.google.gson.reflect.TypeToken;
 import io.github.underware.UnderWare;
 import io.github.underware.config.directory.DirectoryManager;
-import io.github.underware.config.gson.JsonStreamReader;
+import io.github.underware.config.jsonstream.JsonStreamParser;
+import io.github.underware.core.Globals;
+import io.github.underware.module.ModuleBase;
 import io.github.underware.module.ModuleManager;
 
 import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.List;
 
-import static io.github.underware.core.Globals.GSON;
-
-public class ModuleJsonStreamReader implements JsonStreamReader {
+public class ModuleJsonStreamParser implements JsonStreamParser {
 
     public void readJsonStream() {
         try (FileReader reader = new FileReader(DirectoryManager.INSTANCE.moduleFilePath.toFile())) {
-            List<JsonObject> jsonObjects = GSON.fromJson(reader, new TypeToken<List<JsonObject>>() {
+            List<JsonObject> jsonObjects = Globals.INSTANCE.GSON.fromJson(reader, new TypeToken<List<JsonObject>>() {
             }.getType());
             readModuleArray(jsonObjects);
         } catch (Exception e) {
             UnderWare.LOGGER.warn("Unable to load modules.");
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public void writeJsonStream() {
+        try (FileWriter fileWriter = new FileWriter(DirectoryManager.INSTANCE.moduleFilePath.toFile())) {
+            Globals.INSTANCE.GSON.toJson(ModuleManager.INSTANCE.modules, new TypeToken<List<ModuleBase>>() {
+            }.getType(), fileWriter);
+        } catch (IOException e) {
+            UnderWare.LOGGER.warn("Unable to save modules.");
             e.printStackTrace();
         }
     }

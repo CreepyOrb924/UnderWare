@@ -4,7 +4,6 @@ import io.github.underware.UnderWare;
 import io.github.underware.module.setting.SettingBase;
 import io.github.underware.util.reflection.ReflectionUtil;
 
-import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -22,20 +21,11 @@ public enum ModuleManager {
 
     private void loadModules() {
         try {
-            ArrayList<Class<?>> modClasses = ReflectionUtil.getClassesForPackage("io.github.underware.module.impl");
-            modClasses.spliterator().forEachRemaining(aClass -> {
-                if (!ModuleBase.class.isAssignableFrom(aClass)) {
-                    return;
-                }
-                try {
-                    ModuleBase module = (ModuleBase) aClass.getConstructor().newInstance();
-                    new ModuleSettingAccessor(module).loadModuleSettings();
-                    modules.add(module);
-                    UnderWare.LOGGER.info("Loaded Module: {}.", module);
-                } catch (InvocationTargetException | InstantiationException | IllegalAccessException | NoSuchMethodException e) {
-                    UnderWare.LOGGER.error("Unable to create module class. [{}]", e.toString());
-                    e.printStackTrace();
-                }
+            ReflectionUtil.getAddClassesFromPackageToList("io.github.underware.module.impl", modules, ModuleBase.class);
+
+            modules.forEach(module -> {
+                new ModuleSettingAccessor(module).loadModuleSettings();
+                UnderWare.LOGGER.info("Loaded Module: {}.", module);
             });
         } catch (ClassNotFoundException e) {
             UnderWare.LOGGER.error(e);

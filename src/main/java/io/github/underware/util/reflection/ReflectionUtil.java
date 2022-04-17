@@ -1,14 +1,18 @@
 package io.github.underware.util.reflection;
 
+import io.github.underware.UnderWare;
+
 import java.io.File;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
+import java.lang.reflect.InvocationTargetException;
 import java.net.JarURLConnection;
 import java.net.URL;
 import java.net.URLConnection;
 import java.net.URLDecoder;
 import java.util.ArrayList;
 import java.util.Enumeration;
+import java.util.List;
 import java.util.jar.JarEntry;
 import java.util.jar.JarFile;
 
@@ -38,7 +42,7 @@ public class ReflectionUtil {
                     try {
                         classes.add(Class.forName(packageName + '.'
                                 + file.substring(0, file.length() - 6)));
-                    } catch (final NoClassDefFoundError e) {
+                    } catch (final NoClassDefFoundError | ClassNotFoundException ignored) {
                         // do nothing. this class hasn't been found by the
                         // loader, and we don't care.
                     }
@@ -142,6 +146,34 @@ public class ReflectionUtil {
         }
 
         return classes;
+    }
+
+    /**
+     * Attempts to invoke and add all the classes in the
+     * specified package as determined by the context
+     * class loader to a specified list
+     *
+     * @param packageName the package name to search
+     * @param list        the list to add the classes to
+     * @param tClass      the type of class we will be invoking
+     * @param <T>         the type of object we will be invoking
+     * @throws ClassNotFoundException if something went wrong
+     */
+    @SuppressWarnings("unchecked")
+    public static <T> void getAddClassesFromPackageToList(String packageName, List<T> list, Class<T> tClass) throws ClassNotFoundException {
+        final List<Class<?>> classes = getClassesForPackage(packageName);
+
+        classes.stream()
+                .filter(aClass -> tClass.isAssignableFrom(aClass) && !(aClass == tClass) && !aClass.isInterface())
+                .map(aClass -> {
+                    try {
+                        return aClass.getConstructor().newInstance();
+                    } catch (final InstantiationException | IllegalAccessException | InvocationTargetException | NoSuchMethodException e) {
+                        UnderWare.LOGGER.warn("Unable to instantiate class {}.", aClass);
+                        e.printStackTrace();
+                        return null;
+                    }
+                }).forEach(object -> list.add((T) object));
     }
 
 }

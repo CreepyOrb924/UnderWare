@@ -22,8 +22,8 @@ public enum ForgeEventHandler {
     @SubscribeEvent
     public void onInputKeyInput(InputEvent.KeyInputEvent event) {
         if (Keyboard.getEventKeyState()) {
-            if (Keyboard.getEventCharacter() == Globals.prefix && mc.currentScreen == null) {
-                mc.displayGuiScreen(new GuiChat(String.valueOf(Globals.prefix)));
+            if (Keyboard.getEventCharacter() == Globals.INSTANCE.prefix && mc.currentScreen == null) {
+                mc.displayGuiScreen(new GuiChat(String.valueOf(Globals.INSTANCE.prefix)));
             }
 
             ModuleManager.INSTANCE.onKeyPress(Keyboard.getEventKey());

@@ -1,24 +1,24 @@
 package io.github.underware.config;
 
 import io.github.underware.UnderWare;
-import io.github.underware.module.ModuleManager;
-import io.github.underware.module.config.ModuleJsonStreamReader;
-import io.github.underware.module.config.ModuleJsonStreamWriter;
+import io.github.underware.config.jsonstream.JsonStreamParser;
+import io.github.underware.config.jsonstream.JsonStreamParserLoader;
 
 public enum ConfigManager {
 
     INSTANCE;
 
-    private final ModuleJsonStreamWriter moduleSerializer = new ModuleJsonStreamWriter();
-    private final ModuleJsonStreamReader moduleDeserializer = new ModuleJsonStreamReader();
+    private final JsonStreamParserLoader jsonStreamParserLoader = new JsonStreamParserLoader();
 
     public void save() {
-        moduleSerializer.writeJsonStream(ModuleManager.INSTANCE.modules);
+        jsonStreamParserLoader.getJsonStreamParsers()
+                .forEach(JsonStreamParser::writeJsonStream);
         UnderWare.LOGGER.info("Finished saving config.");
     }
 
     public void load() {
-        moduleDeserializer.readJsonStream();
+        jsonStreamParserLoader.getJsonStreamParsers()
+                .forEach(JsonStreamParser::readJsonStream);
         UnderWare.LOGGER.info("Finished loading config.");
     }
 
