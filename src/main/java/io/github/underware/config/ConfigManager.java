@@ -11,15 +11,19 @@ public enum ConfigManager {
     private final JsonStreamParserLoader jsonStreamParserLoader = new JsonStreamParserLoader();
 
     public void save() {
-        jsonStreamParserLoader.getJsonStreamParsers()
-                .forEach(JsonStreamParser::writeJsonStream);
-        UnderWare.LOGGER.info("Finished saving config.");
+        new Thread(() -> {
+            jsonStreamParserLoader.getJsonStreamParsers()
+                    .forEach(JsonStreamParser::writeJsonStream);
+            UnderWare.LOGGER.info("Finished saving config.");
+        }).start();
     }
 
     public void load() {
-        jsonStreamParserLoader.getJsonStreamParsers()
-                .forEach(JsonStreamParser::readJsonStream);
-        UnderWare.LOGGER.info("Finished loading config.");
+        new Thread(() -> {
+            jsonStreamParserLoader.getJsonStreamParsers()
+                    .forEach(JsonStreamParser::readJsonStream);
+            UnderWare.LOGGER.info("Finished loading config.");
+        }).start();
     }
 
 }
