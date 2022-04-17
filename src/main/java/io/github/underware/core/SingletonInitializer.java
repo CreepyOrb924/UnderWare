@@ -18,12 +18,12 @@ public enum SingletonInitializer {
         // Load the directory first.
         DirectoryManager.INSTANCE.init();
 
-        // Load everything else.
+        // Load everything else second.
         CommandManager.INSTANCE.init();
         ModuleManager.INSTANCE.init();
         ForgeEventHandler.INSTANCE.init();
 
-        // Load the config second.
+        // Load the config last.
         ConfigManager.INSTANCE.load();
     }
 

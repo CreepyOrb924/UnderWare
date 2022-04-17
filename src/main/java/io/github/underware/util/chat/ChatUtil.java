@@ -37,7 +37,7 @@ public class ChatUtil {
      * @param message    The message that will be printed.
      */
     public static void sendLogger(LoggerType loggerType, String message) {
-        if (mc.world == null || mc.player == null || !Globals.debug) {
+        if (mc.world == null || mc.player == null || !Globals.INSTANCE.debug) {
             return;
         }
 

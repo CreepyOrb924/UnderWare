@@ -8,6 +8,7 @@ import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
+// TODO: 4/16/22 Different presets
 public enum DirectoryManager {
 
     INSTANCE;
@@ -16,13 +17,15 @@ public enum DirectoryManager {
     public final Path minecraftDirectoryPath = Minecraft.getMinecraft().gameDir.toPath().toAbsolutePath();
     public final Path modDirectoryPath = Paths.get(minecraftDirectoryPath.toString(), UnderWare.NAME);
     public final Path moduleDirectoryPath = Paths.get(modDirectoryPath.toString(), "module");
+    public final Path globalsDirectoryPath = Paths.get(modDirectoryPath.toString(), "globals");
 
     // Files
     public final Path moduleFilePath = Paths.get(moduleDirectoryPath.toAbsolutePath().toString(), "modules.json");
+    public final Path globalsFilePath = Paths.get(globalsDirectoryPath.toAbsolutePath().toString(), "globals.json");
 
     public void init() {
-        createDirectories(modDirectoryPath, moduleDirectoryPath);
-        createFiles(moduleFilePath);
+        createDirectories(modDirectoryPath, moduleDirectoryPath, globalsDirectoryPath);
+        createFiles(moduleFilePath, globalsFilePath);
     }
 
     private void createDirectories(Path... paths) {
