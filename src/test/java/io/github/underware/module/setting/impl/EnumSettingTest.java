@@ -4,7 +4,7 @@ import org.junit.jupiter.api.Test;
 
 import java.util.Arrays;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class EnumSettingTest {
 
@@ -15,7 +15,7 @@ class EnumSettingTest {
         EGGS
     }
 
-    private final EnumSetting myEnumSetting = new EnumSetting("foo", "foo", MyEnum.FOO);
+    private final EnumSetting<MyEnum> myEnumSetting = new EnumSetting<>("foo", "foo", MyEnum.FOO);
 
     @Test
     void getNextEnumValue() {
@@ -37,7 +37,7 @@ class EnumSettingTest {
         Enum<?>[] enumConstants = myEnumSetting.getValue().getDeclaringClass().getEnumConstants();
 
         // When
-        myEnumSetting.setValue(Arrays.stream(enumConstants)
+        myEnumSetting.setValue((MyEnum) Arrays.stream(enumConstants)
                 .filter(anEnum -> anEnum.name().equalsIgnoreCase("bar"))
                 .findAny()
                 .orElse(enumConstants[0]));
@@ -52,7 +52,7 @@ class EnumSettingTest {
         Enum<?>[] enumConstants = myEnumSetting.getValue().getDeclaringClass().getEnumConstants();
 
         // When
-        myEnumSetting.setValue(Arrays.stream(enumConstants)
+        myEnumSetting.setValue((MyEnum) Arrays.stream(enumConstants)
                 .filter(anEnum -> anEnum.name().equalsIgnoreCase("ham"))
                 .findAny()
                 .orElse(enumConstants[0]));

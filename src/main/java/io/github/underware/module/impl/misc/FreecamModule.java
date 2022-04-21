@@ -14,7 +14,7 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 public class FreecamModule extends ModuleBase {
 
     private final NumberSetting<Double> speed = new NumberSetting<>("Speed", "How fast you fly.", 0.7, 0.1, 3.0, 0.1);
-    private final EnumSetting mode = new EnumSetting("Mode", "The type of freecam mode.", modes.NORMAL);
+    private final EnumSetting<Modes> mode = new EnumSetting<>("Mode", "The type of freecam mode.", Modes.NORMAL);
 
     // 0.01745329252 is pi / 180 or almost sin(1 degree)
     private final double piOver180 = 0.01745329252;
@@ -22,6 +22,51 @@ public class FreecamModule extends ModuleBase {
 
     private EntityOtherPlayerMP clonedPlayer;
     private Vec3d location;
+
+    private void handleMovement() {
+        double motionX = 0, motionY = 0, motionZ = 0;
+
+        if (mc.gameSettings.keyBindJump.isKeyDown()) {
+            if (mode.getValue() == Modes.NORMAL) {
+                motionY += 1;
+            }
+        }
+        if (mc.gameSettings.keyBindSneak.isKeyDown()) {
+            if (mode.getValue() == Modes.NORMAL) {
+                motionY -= 1;
+            }
+        }
+
+        if (mc.gameSettings.keyBindForward.isKeyDown()) {
+            motionX += Math.cos((90 + mc.player.rotationYaw) * piOver180);
+            motionZ += Math.sin((90 + mc.player.rotationYaw) * piOver180);
+
+            if (mode.getValue() == Modes.CSGO) {
+                motionY += Math.cos((90 + mc.player.rotationPitch) * piOver180);
+            }
+        }
+        if (mc.gameSettings.keyBindBack.isKeyDown()) {
+            motionX -= Math.cos((90 + mc.player.rotationYaw) * piOver180);
+            motionZ -= Math.sin((90 + mc.player.rotationYaw) * piOver180);
+
+            if (mode.getValue() == Modes.CSGO) {
+                motionY -= Math.cos((90 + mc.player.rotationPitch) * piOver180);
+            }
+        }
+
+        if (mc.gameSettings.keyBindLeft.isKeyDown()) {
+            motionX += Math.cos((mc.player.rotationYaw) * piOver180);
+            motionZ += Math.sin((mc.player.rotationYaw) * piOver180);
+        }
+        if (mc.gameSettings.keyBindRight.isKeyDown()) {
+            motionX -= Math.cos((mc.player.rotationYaw) * piOver180);
+            motionZ -= Math.sin((mc.player.rotationYaw) * piOver180);
+        }
+
+        mc.player.motionX = motionX * speed.getValue();
+        mc.player.motionY = motionY * speed.getValue();
+        mc.player.motionZ = motionZ * speed.getValue();
+    }
 
     public FreecamModule() {
         super("Freecam", "Allow your player to freely fly around the world.", Category.MISC);
@@ -87,52 +132,7 @@ public class FreecamModule extends ModuleBase {
         handleMovement();
     }
 
-    private void handleMovement() {
-        double motionX = 0, motionY = 0, motionZ = 0;
-
-        if (mc.gameSettings.keyBindJump.isKeyDown()) {
-            if (mode.getValue() == modes.NORMAL) {
-                motionY += 1;
-            }
-        }
-        if (mc.gameSettings.keyBindSneak.isKeyDown()) {
-            if (mode.getValue() == modes.NORMAL) {
-                motionY -= 1;
-            }
-        }
-
-        if (mc.gameSettings.keyBindForward.isKeyDown()) {
-            motionX += Math.cos((90 + mc.player.rotationYaw) * piOver180);
-            motionZ += Math.sin((90 + mc.player.rotationYaw) * piOver180);
-
-            if (mode.getValue() == modes.CSGO) {
-                motionY += Math.cos((90 + mc.player.rotationPitch) * piOver180);
-            }
-        }
-        if (mc.gameSettings.keyBindBack.isKeyDown()) {
-            motionX -= Math.cos((90 + mc.player.rotationYaw) * piOver180);
-            motionZ -= Math.sin((90 + mc.player.rotationYaw) * piOver180);
-
-            if (mode.getValue() == modes.CSGO) {
-                motionY -= Math.cos((90 + mc.player.rotationPitch) * piOver180);
-            }
-        }
-
-        if (mc.gameSettings.keyBindLeft.isKeyDown()) {
-            motionX += Math.cos((mc.player.rotationYaw) * piOver180);
-            motionZ += Math.sin((mc.player.rotationYaw) * piOver180);
-        }
-        if (mc.gameSettings.keyBindRight.isKeyDown()) {
-            motionX -= Math.cos((mc.player.rotationYaw) * piOver180);
-            motionZ -= Math.sin((mc.player.rotationYaw) * piOver180);
-        }
-
-        mc.player.motionX = motionX * speed.getValue();
-        mc.player.motionY = motionY * speed.getValue();
-        mc.player.motionZ = motionZ * speed.getValue();
-    }
-
-    private enum modes {
+    private enum Modes {
         NORMAL,
         CSGO
     }

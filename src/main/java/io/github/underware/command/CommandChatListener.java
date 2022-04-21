@@ -15,7 +15,7 @@ public enum CommandChatListener {
 
     @SubscribeEvent
     public void onClientChat(ClientChatEvent event) {
-        String message = event.getMessage().toLowerCase();
+        String message = event.getMessage();
         if (message.startsWith(String.valueOf(Globals.INSTANCE.prefix))) {
             CommandManager.INSTANCE.executeArgs(message.substring(1).split(" "));
             event.setCanceled(true);

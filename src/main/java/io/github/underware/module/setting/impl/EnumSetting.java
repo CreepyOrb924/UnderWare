@@ -4,9 +4,9 @@ import io.github.underware.module.setting.SettingBase;
 
 import java.util.Arrays;
 
-public class EnumSetting extends SettingBase<Enum<?>> {
+public class EnumSetting<T extends Enum<?>> extends SettingBase<T> {
 
-    public EnumSetting(String name, String description, Enum<?> value) {
+    public EnumSetting(String name, String description, T value) {
         super(name, description, value);
     }
 
@@ -18,9 +18,10 @@ public class EnumSetting extends SettingBase<Enum<?>> {
         return enums[nextIndex];
     }
 
+    @SuppressWarnings("unchecked")
     public void setValue(String value) {
         Enum<?>[] enumConstants = getValue().getDeclaringClass().getEnumConstants();
-        this.setValue(Arrays.stream(enumConstants)
+        this.setValue((T) Arrays.stream(enumConstants)
                 .filter(anEnum -> anEnum.name().equalsIgnoreCase(value))
                 .findAny()
                 .orElse(enumConstants[0]));

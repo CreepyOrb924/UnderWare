@@ -1,5 +1,6 @@
 package io.github.underware.module.config;
 
+import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import io.github.underware.module.ModuleBase;
@@ -17,33 +18,37 @@ public class ModuleDeserializer {
     public void readJsonObject(JsonObject object) {
         if (object.has("key_bind")) {
             module.setKeyBind(object.get("key_bind").getAsInt());
-        } else if (object.has("enabled")) {
+        }
+        if (object.has("enabled")) {
             module.setEnabled(object.get("enabled").getAsBoolean());
-        } else if (object.has("settings")) {
-            readSettingArray(object.get("settings").getAsJsonObject());
+        }
+        if (object.has("settings")) {
+            readSettingArray(object.get("settings").getAsJsonArray());
         }
     }
 
-    private void readSettingArray(JsonObject jsonObject) {
-        if (!jsonObject.has("name")) {
-            return;
-        }
+    private void readSettingArray(JsonArray jsonArray) {
+        for (JsonElement jsonElement : jsonArray) {
+            JsonObject jsonObject = jsonElement.getAsJsonObject();
+            if (!jsonObject.has("name")) {
+                return;
+            }
 
-        String name = jsonObject.get("name").getAsString();
-        module.getSettings().stream()
-                .filter(setting -> setting.getName().equals(name))
-                .findAny()
-                .ifPresent(setting -> readSettingType(jsonObject, setting));
+            String name = jsonObject.get("name").getAsString();
+            module.getSettings().stream()
+                    .filter(setting -> setting.getName().equals(name))
+                    .findAny()
+                    .ifPresent(setting -> readSettingType(jsonObject, setting));
+        }
     }
 
-    // TODO: 4/4/22 Test these for different types.
     private void readSettingType(JsonObject jsonObject, SettingBase<?> setting) {
         if (!jsonObject.has("value")) {
             return;
         }
 
         JsonElement jsonElement = jsonObject.get("value");
-        new SettingValueParser(setting).parseJsonElementValue(jsonElement);
+        new SettingValueParser(setting).parseStringValue(jsonElement.getAsString());
     }
 
 }
