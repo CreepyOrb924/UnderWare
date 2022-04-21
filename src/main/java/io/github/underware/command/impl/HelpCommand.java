@@ -25,7 +25,7 @@ public class HelpCommand extends CommandBase {
                     ChatFormatting.RED + "Command" +
                     ChatFormatting.RESET + " \u23d0 " +
                     ChatFormatting.GREEN + "Description" +
-                    ChatFormatting.RESET + " \u2d30 " +
+                    ChatFormatting.RESET + " \u23d0 " +
                     ChatFormatting.BLUE + "Usage\n");
 
             List<CommandBase> commandsAlphabetically = CommandManager.INSTANCE.getCommandsAlphabetically();
