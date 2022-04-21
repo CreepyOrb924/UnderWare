@@ -2,6 +2,8 @@ package io.github.underware.command.impl;
 
 import io.github.underware.command.CommandBase;
 import io.github.underware.config.ConfigManager;
+import io.github.underware.util.chat.ChatUtil;
+import io.github.underware.util.chat.LoggerType;
 
 public class ConfigCommand extends CommandBase {
 
@@ -17,8 +19,10 @@ public class ConfigCommand extends CommandBase {
 
         if (args[0].equalsIgnoreCase("save")) {
             ConfigManager.INSTANCE.save();
+            ChatUtil.sendLogger(LoggerType.SUCCESS, "Config saved.");
         } else if (args[0].equalsIgnoreCase("load")) {
             ConfigManager.INSTANCE.load();
+            ChatUtil.sendLogger(LoggerType.SUCCESS, "Config loaded.");
         } else {
             sendUsageFormatted();
         }

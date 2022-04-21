@@ -1,7 +1,10 @@
 package io.github.underware.command.impl;
 
 import io.github.underware.command.CommandBase;
+import io.github.underware.module.ModuleBase;
 import io.github.underware.module.ModuleManager;
+import io.github.underware.util.chat.ChatUtil;
+import io.github.underware.util.chat.LoggerType;
 import org.lwjgl.input.Keyboard;
 
 public class BindCommand extends CommandBase {
@@ -16,7 +19,13 @@ public class BindCommand extends CommandBase {
             sendUsage();
         }
 
-        ModuleManager.INSTANCE.getModule(args[0]).setKeyBind(Keyboard.getKeyIndex(args[1]));
+        ModuleBase module = ModuleManager.INSTANCE.getModule(args[0]);
+        String keyName = args[1].toUpperCase();
+        module.setKeyBind(Keyboard.getKeyIndex(keyName));
+
+        if (Keyboard.getKeyName(module.getKeyBind()).equals(keyName)) {
+            ChatUtil.sendLogger(LoggerType.SUCCESS, "Changed key-bind of: {} to: {}.", module, keyName);
+        }
     }
 
 }

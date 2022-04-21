@@ -21,7 +21,11 @@ public class ToggleCommand extends CommandBase {
         try {
             ModuleBase module = ModuleManager.INSTANCE.getModule(args[0]);
             module.toggle();
-            ChatUtil.sendLogger(LoggerType.SUCCESS, "Toggled module: {}.", module.getName());
+            if (module.isEnabled()) {
+                ChatUtil.sendLogger(LoggerType.SUCCESS, "Enabled module: {}.", module.getName());
+            } else {
+                ChatUtil.sendLogger(LoggerType.SUCCESS, "Disabled module: {}.", module.getName());
+            }
         } catch (RuntimeException ignored) {
             ChatUtil.sendLogger(LoggerType.WARN, "Unable to find module: {}.", args[0]);
         }

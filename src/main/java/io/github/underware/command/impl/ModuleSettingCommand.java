@@ -5,6 +5,8 @@ import io.github.underware.module.ModuleBase;
 import io.github.underware.module.ModuleManager;
 import io.github.underware.module.setting.SettingBase;
 import io.github.underware.module.setting.SettingValueParser;
+import io.github.underware.util.chat.ChatUtil;
+import io.github.underware.util.chat.LoggerType;
 
 public class ModuleSettingCommand extends CommandBase {
 
@@ -21,6 +23,8 @@ public class ModuleSettingCommand extends CommandBase {
         ModuleBase module = ModuleManager.INSTANCE.getModule(args[0]);
         SettingBase<?> setting = ModuleManager.INSTANCE.getSettingByName(module, args[1]);
         new SettingValueParser(setting).parseStringValue(args[2]);
+
+        ChatUtil.sendLogger(LoggerType.SUCCESS, "Set setting: {} to: {}.", setting, args[2]);
     }
 
 }
