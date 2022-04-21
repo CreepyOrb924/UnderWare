@@ -2,26 +2,26 @@ package io.github.underware.module.setting.impl;
 
 import io.github.underware.module.setting.SettingBase;
 
-public class NumberSetting extends SettingBase<Number> {
+public class NumberSetting<T extends Number> extends SettingBase<T> {
 
-    private final Number min, max, inc;
+    private final T min, max, inc;
 
-    public NumberSetting(String name, String description, Number value, Number min, Number max, Number inc) {
+    public NumberSetting(String name, String description, T value, T min, T max, T inc) {
         super(name, description, value);
         this.min = min;
         this.max = max;
         this.inc = inc;
     }
 
-    public Number getMin() {
+    public T getMin() {
         return min;
     }
 
-    public Number getMax() {
+    public T getMax() {
         return max;
     }
 
-    public Number getInc() {
+    public T getInc() {
         return inc;
     }
 

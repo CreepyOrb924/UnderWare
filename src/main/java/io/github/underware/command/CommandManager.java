@@ -58,8 +58,7 @@ public enum CommandManager {
                 .ifPresent(commandBase -> {
                             try {
                                 commandBase.execute(dropFirstString(args));
-                            } catch (ArrayIndexOutOfBoundsException e) {
-                                e.printStackTrace();
+                            } catch (ArrayIndexOutOfBoundsException ignored) {
                             }
                         }
                 );

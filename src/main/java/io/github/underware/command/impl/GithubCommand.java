@@ -5,7 +5,7 @@ import io.github.underware.command.CommandBase;
 public class GithubCommand extends CommandBase {
 
     public GithubCommand() {
-        super("Github", "Prints the client's GitHub URL in chat.", new String[]{"git", "url"}, "");
+        super("Github", "Sends the client's GitHub URL in chat.", new String[]{"git"}, "");
     }
 
     @Override

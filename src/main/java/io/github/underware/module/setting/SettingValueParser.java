@@ -13,9 +13,10 @@ public class SettingValueParser {
         this.setting = setting;
     }
 
+    @SuppressWarnings("unchecked")
     public void parseStringValue(String stringValue) {
         if (setting instanceof NumberSetting) {
-            NumberSetting numberSetting = (NumberSetting) setting;
+            NumberSetting<Number> numberSetting = (NumberSetting<Number>) setting;
             Number value = numberSetting.getValue();
             if (value instanceof Double) {
                 numberSetting.setValue(Double.parseDouble(stringValue));
@@ -35,9 +36,10 @@ public class SettingValueParser {
         }
     }
 
+    @SuppressWarnings("unchecked")
     public void parseJsonElementValue(JsonElement jsonElement) {
         if (setting instanceof NumberSetting) {
-            NumberSetting numberSetting = (NumberSetting) setting;
+            NumberSetting<Number> numberSetting = (NumberSetting<Number>) setting;
             Number value = numberSetting.getValue();
             if (value instanceof Double) {
                 numberSetting.setValue(jsonElement.getAsDouble());

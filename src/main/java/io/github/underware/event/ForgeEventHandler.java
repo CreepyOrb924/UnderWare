@@ -22,6 +22,11 @@ public enum ForgeEventHandler {
     @SubscribeEvent
     public void onInputKeyInput(InputEvent.KeyInputEvent event) {
         if (Keyboard.getEventKeyState()) {
+            // Is fired when hitting the super key on Linux.
+            if (Keyboard.getEventKey() == Keyboard.KEY_NONE) {
+                return;
+            }
+
             if (Keyboard.getEventCharacter() == Globals.INSTANCE.prefix && mc.currentScreen == null) {
                 mc.displayGuiScreen(new GuiChat(String.valueOf(Globals.INSTANCE.prefix)));
             }

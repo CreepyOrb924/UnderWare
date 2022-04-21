@@ -22,6 +22,7 @@ public class ModuleSettingAccessor {
             if (!field.isAccessible()) {
                 field.setAccessible(true);
             }
+
             try {
                 module.addSettings((SettingBase<?>) field.get(module));
             } catch (IllegalAccessException e) {

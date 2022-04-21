@@ -9,7 +9,7 @@ import io.github.underware.util.chat.LoggerType;
 public class ToggleCommand extends CommandBase {
 
     public ToggleCommand() {
-        super("Toggle", "Toggles ModulesCommand.", new String[]{}, "<module>");
+        super("Toggle", "Toggles ModulesCommand.", new String[]{"enable", "disable"}, "<module>");
     }
 
     @Override
