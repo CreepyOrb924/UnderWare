@@ -21,7 +21,7 @@ public interface ManagerHandler<T> {
         return getObjects().stream()
                 .filter(t -> t.getClass() == aClass)
                 .findAny()
-                .orElseThrow(() -> new RuntimeException("Unable to find " + aClass + "."));
+                .orElseThrow(() -> new IllegalArgumentException("Unable to find " + aClass + "."));
     }
 
     T get(String name);

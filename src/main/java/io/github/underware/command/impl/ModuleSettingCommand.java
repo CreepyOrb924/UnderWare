@@ -18,13 +18,17 @@ public class ModuleSettingCommand extends CommandBase {
     public void execute(String[] args) throws ArrayIndexOutOfBoundsException {
         if (args.length != 3) {
             sendUsageFormatted();
+            return;
         }
 
-        ModuleBase module = ModuleManager.INSTANCE.get(args[0]);
-        SettingBase<?> setting = ModuleManager.INSTANCE.getSetting(module, args[1]);
-        new SettingValueParser(setting).parseValue(args[2]);
-
-        ChatUtil.sendLogger(LoggerType.SUCCESS, "Set setting: {} to: {}.", setting, args[2]);
+        try {
+            ModuleBase module = ModuleManager.INSTANCE.get(args[0]);
+            SettingBase<?> setting = ModuleManager.INSTANCE.getSetting(module, args[1]);
+            new SettingValueParser(setting).parseValue(args[2]);
+            ChatUtil.sendLogger(LoggerType.SUCCESS, "Set setting: {} to: {}.", setting, args[2]);
+        } catch (IllegalArgumentException e) {
+            sendUsageFormatted();
+        }
     }
 
 }

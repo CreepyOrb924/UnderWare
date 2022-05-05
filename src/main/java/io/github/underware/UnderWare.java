@@ -8,7 +8,6 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.lwjgl.opengl.Display;
 
-// TODO: 5/4/22 Go through all the code and clean it
 @Mod(modid = UnderWare.MOD_ID, name = UnderWare.NAME, version = UnderWare.VERSION)
 public class UnderWare {
 

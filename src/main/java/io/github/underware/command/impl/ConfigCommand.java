@@ -15,6 +15,7 @@ public class ConfigCommand extends CommandBase {
     public void execute(String[] args) throws ArrayIndexOutOfBoundsException {
         if (!(args.length == 1)) {
             sendUsageFormatted();
+            return;
         }
 
         if (args[0].equalsIgnoreCase("save")) {
@@ -23,8 +24,6 @@ public class ConfigCommand extends CommandBase {
         } else if (args[0].equalsIgnoreCase("load")) {
             ConfigManager.INSTANCE.load();
             ChatUtil.sendLogger(LoggerType.SUCCESS, "Config loaded.");
-        } else {
-            sendUsageFormatted();
         }
     }
 

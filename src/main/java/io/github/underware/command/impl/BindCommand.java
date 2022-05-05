@@ -17,14 +17,19 @@ public class BindCommand extends CommandBase {
     public void execute(String[] args) throws ArrayIndexOutOfBoundsException {
         if (!(args.length == 2)) {
             sendUsage();
+            return;
         }
 
-        ModuleBase module = ModuleManager.INSTANCE.get(args[0]);
-        String keyName = args[1].toUpperCase();
-        module.setKeyBind(Keyboard.getKeyIndex(keyName));
+        try {
+            ModuleBase module = ModuleManager.INSTANCE.get(args[0]);
+            String keyName = args[1].toUpperCase();
+            module.setKeyBind(Keyboard.getKeyIndex(keyName));
 
-        if (Keyboard.getKeyName(module.getKeyBind()).equals(keyName)) {
-            ChatUtil.sendLogger(LoggerType.SUCCESS, "Changed key-bind of: {} to: {}.", module, keyName);
+            if (Keyboard.getKeyName(module.getKeyBind()).equals(keyName)) {
+                ChatUtil.sendLogger(LoggerType.SUCCESS, "Changed key-bind of: {} to: {}.", module, keyName);
+            }
+        } catch (IllegalArgumentException e) {
+            sendUsageFormatted();
         }
     }
 

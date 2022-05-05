@@ -1,5 +1,6 @@
 package io.github.underware.module.impl.chat;
 
+import io.github.underware.core.Globals;
 import io.github.underware.module.Category;
 import io.github.underware.module.ModuleBase;
 import io.github.underware.module.setting.impl.EnumSetting;
@@ -22,7 +23,9 @@ public class SuffixModule extends ModuleBase {
 
     @SubscribeEvent
     public void onClientChat(ClientChatEvent event) {
-        event.setMessage(event.getMessage() + " " + separator.getValue().getSeparator() + " " + getWideText(suffix.getValue()));
+        if (!startWithPrefix(event.getMessage())) {
+            event.setMessage(event.getMessage() + " " + separator.getValue().getSeparator() + " " + getWideText(suffix.getValue()));
+        }
     }
 
     private String getWideText(String message) {
@@ -32,6 +35,11 @@ public class SuffixModule extends ModuleBase {
             sb.append((char) (0xff01 + c - 33));
         }
         return sb.toString();
+    }
+
+    private boolean startWithPrefix(String message) {
+        return message.startsWith("/")
+                || message.startsWith(String.valueOf(Globals.INSTANCE.prefix));
     }
 
     private enum Separators {

@@ -16,6 +16,7 @@ public class ToggleCommand extends CommandBase {
     public void execute(String[] args) throws ArrayIndexOutOfBoundsException {
         if (!(args.length == 1)) {
             sendUsage();
+            return;
         }
 
         try {

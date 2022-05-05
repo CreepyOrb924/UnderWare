@@ -48,7 +48,7 @@ public enum CommandManager implements ManagerHandler<CommandBase> {
         return commands.stream()
                 .filter(command -> command.getName().equalsIgnoreCase(name) || commandAliasMatchString(command, name))
                 .findAny()
-                .orElseThrow(() -> new RuntimeException("Unable to find " + name + "."));
+                .orElseThrow(() -> new IllegalArgumentException("Unable to find " + name + "."));
     }
 
     public void executeArgs(String[] args) {

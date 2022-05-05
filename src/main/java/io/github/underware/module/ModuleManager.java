@@ -50,14 +50,14 @@ public enum ModuleManager implements ManagerHandler<ModuleBase> {
         return modules.stream()
                 .filter(module -> module.getName().equalsIgnoreCase(name))
                 .findAny()
-                .orElseThrow(() -> new RuntimeException("Unable to find " + name + "."));
+                .orElseThrow(() -> new IllegalArgumentException("Unable to find " + name + "."));
     }
 
     public SettingBase<?> getSetting(ModuleBase module, String settingName) {
         return module.getSettings().stream()
                 .filter(setting -> setting.getName().equalsIgnoreCase(settingName))
                 .findAny()
-                .orElseThrow(() -> new RuntimeException("Unable to find setting: " + settingName + '.'));
+                .orElseThrow(() -> new IllegalArgumentException("Unable to find Setting: " + settingName + '.'));
     }
 
     public void onKeyPress(int key) {
