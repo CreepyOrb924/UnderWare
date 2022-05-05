@@ -19,7 +19,7 @@ public class ToggleCommand extends CommandBase {
         }
 
         try {
-            ModuleBase module = ModuleManager.INSTANCE.getModule(args[0]);
+            ModuleBase module = ModuleManager.INSTANCE.get(args[0]);
             module.toggle();
             if (module.isEnabled()) {
                 ChatUtil.sendLogger(LoggerType.SUCCESS, "Enabled module: {}.", module.getName());

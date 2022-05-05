@@ -54,4 +54,5 @@ public class ModuleJsonStreamParser implements JsonStreamParser {
                 .findAny()
                 .ifPresent(moduleBase -> new ModuleDeserializer(moduleBase).readJsonObject(jsonObject));
     }
+
 }

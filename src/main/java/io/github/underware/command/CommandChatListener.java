@@ -5,11 +5,9 @@ import net.minecraftforge.client.event.ClientChatEvent;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
-public enum CommandChatListener {
+public class CommandChatListener {
 
-    INSTANCE;
-
-    public void init() {
+    public CommandChatListener() {
         MinecraftForge.EVENT_BUS.register(this);
     }
 

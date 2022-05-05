@@ -27,7 +27,7 @@ public class ModulesCommand extends CommandBase {
                 ChatFormatting.RESET + " \u2d30 " +
                 ChatFormatting.YELLOW + "Settings\n");
 
-        List<ModuleBase> modulesAlphabetically = ModuleManager.INSTANCE.getModulesAlphabetically();
+        List<ModuleBase> modulesAlphabetically = ModuleManager.INSTANCE.getObjectsAlphabetically();
         for (int i = 0; i < modulesAlphabetically.size(); i++) {
             stringBuilder.append(getDetailsFormatted(modulesAlphabetically.get(i)));
             if (i != modulesAlphabetically.size() - 1) {

@@ -2,6 +2,7 @@ package io.github.underware.command;
 
 import com.mojang.realmsclient.gui.ChatFormatting;
 import io.github.underware.core.Globals;
+import io.github.underware.util.StringUtil;
 import io.github.underware.util.chat.ChatUtil;
 import net.minecraft.client.Minecraft;
 
@@ -11,10 +12,9 @@ import java.util.Arrays;
 // TODO: 4/6/22 Change chat color when you start with prefix. (AKA GUI Elements for commands.)
 public abstract class CommandBase {
 
+    protected final Minecraft mc = Minecraft.getMinecraft();
     private final String name, description, usage;
     private final String[] alias;
-
-    protected final Minecraft mc = Minecraft.getMinecraft();
 
     public CommandBase(String name, String description, String[] alias, String usage) {
         this.name = name;
@@ -56,16 +56,16 @@ public abstract class CommandBase {
     }
 
     public String getUsageFormatted() {
-        return ChatFormatting.RED +
-                getName() +
-                ChatFormatting.RESET +
-                " \u23d0 " +
-                ChatFormatting.GREEN +
-                getDescription() +
-                ChatFormatting.RESET +
-                " \u23d0 " +
-                ChatFormatting.BLUE +
-                getUsage();
+        return StringUtil.buildString(ChatFormatting.RED.toString(),
+                getName(),
+                ChatFormatting.RESET.toString(),
+                " \u23d0 ",
+                ChatFormatting.GREEN.toString(),
+                getDescription(),
+                ChatFormatting.RESET.toString(),
+                " \u23d0 ",
+                ChatFormatting.BLUE.toString(),
+                getUsage());
     }
 
     @Override

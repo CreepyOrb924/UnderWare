@@ -12,19 +12,17 @@ import java.util.List;
 
 public abstract class ModuleBase {
 
+    protected final Minecraft mc = Minecraft.getMinecraft();
     @Expose
     private final String name;
+    @Expose
+    private final List<SettingBase<?>> settings = new ArrayList<>();
+    private final String description;
+    private final Category category;
     @Expose
     private int keyBind = Keyboard.KEY_NONE;
     @Expose
     private boolean enabled = false;
-    @Expose
-    private final List<SettingBase<?>> settings = new ArrayList<>();
-
-    private final String description;
-    private final Category category;
-
-    protected final Minecraft mc = Minecraft.getMinecraft();
 
     public ModuleBase(String name, String description, Category category) {
         this.name = name;
@@ -95,8 +93,8 @@ public abstract class ModuleBase {
         }
     }
 
-    protected boolean worldCheck() {
-        return mc.player != null && mc.world != null;
+    protected boolean worldIsNull() {
+        return mc.player == null || mc.world == null;
     }
 
     @Override

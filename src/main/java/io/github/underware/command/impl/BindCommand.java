@@ -19,7 +19,7 @@ public class BindCommand extends CommandBase {
             sendUsage();
         }
 
-        ModuleBase module = ModuleManager.INSTANCE.getModule(args[0]);
+        ModuleBase module = ModuleManager.INSTANCE.get(args[0]);
         String keyName = args[1].toUpperCase();
         module.setKeyBind(Keyboard.getKeyIndex(keyName));
 

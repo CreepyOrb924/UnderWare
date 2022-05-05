@@ -11,12 +11,15 @@ import com.google.gson.annotations.Expose;
 public class Globals {
 
     public static Globals INSTANCE = new Globals();
+
     public final Gson GSON = new GsonBuilder()
             .setPrettyPrinting()
             .excludeFieldsWithoutExposeAnnotation()
             .create();
+
     @Expose
     public char prefix = '.';
+
     @Expose
     public boolean debug = false;
 

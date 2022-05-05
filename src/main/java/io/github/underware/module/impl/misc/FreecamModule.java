@@ -23,6 +23,10 @@ public class FreecamModule extends ModuleBase {
     private EntityOtherPlayerMP clonedPlayer;
     private Vec3d location;
 
+    public FreecamModule() {
+        super("Freecam", "Allow your player to freely fly around the world.", Category.MISC);
+    }
+
     private void handleMovement() {
         double motionX = 0, motionY = 0, motionZ = 0;
 
@@ -68,15 +72,11 @@ public class FreecamModule extends ModuleBase {
         mc.player.motionZ = motionZ * speed.getValue();
     }
 
-    public FreecamModule() {
-        super("Freecam", "Allow your player to freely fly around the world.", Category.MISC);
-    }
-
     @Override
     public void onEnable() {
         super.onEnable();
 
-        if (!worldCheck()) {
+        if (worldIsNull()) {
             onDisable();
             return;
         }
@@ -97,7 +97,7 @@ public class FreecamModule extends ModuleBase {
     public void onDisable() {
         super.onDisable();
 
-        if (!worldCheck()) {
+        if (worldIsNull()) {
             return;
         }
 
@@ -117,7 +117,7 @@ public class FreecamModule extends ModuleBase {
 
     @SubscribeEvent
     public void onLivingUpdate(LivingEvent.LivingUpdateEvent event) {
-        if (!worldCheck()) {
+        if (worldIsNull()) {
             return;
         }
 

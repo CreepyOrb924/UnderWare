@@ -13,7 +13,7 @@ public class SettingValueParser {
     }
 
     @SuppressWarnings("unchecked")
-    public void parseStringValue(String stringValue) {
+    public void parseValue(String stringValue) {
         if (setting instanceof NumberSetting) {
             NumberSetting<Number> numberSetting = (NumberSetting<Number>) setting;
             Number value = numberSetting.getValue();

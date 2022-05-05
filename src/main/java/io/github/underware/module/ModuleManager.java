@@ -1,28 +1,28 @@
 package io.github.underware.module;
 
 import io.github.underware.UnderWare;
+import io.github.underware.core.interfaces.ManagerHandler;
 import io.github.underware.module.setting.SettingBase;
 import io.github.underware.util.reflection.ReflectionUtil;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public enum ModuleManager {
+public enum ModuleManager implements ManagerHandler<ModuleBase> {
 
     INSTANCE;
 
     public final List<ModuleBase> modules = new ArrayList<>();
 
     public void init() {
-        loadModules();
+        loadObjects();
     }
 
-    private void loadModules() {
+    @Override
+    public void loadObjects() {
         try {
             ReflectionUtil.getAddClassesFromPackageToList("io.github.underware.module.impl", modules, ModuleBase.class);
-
             modules.forEach(module -> {
                 new ModuleSettingAccessor(module).loadModuleSettings();
                 UnderWare.LOGGER.info("Loaded Module: {}.", module);
@@ -33,31 +33,27 @@ public enum ModuleManager {
         }
     }
 
-    public void addModules(ModuleBase... modules) {
-        this.modules.addAll(Arrays.asList(modules));
+    @Override
+    public List<ModuleBase> getObjects() {
+        return modules;
     }
 
-    public List<ModuleBase> getModulesAlphabetically() {
+    @Override
+    public List<ModuleBase> getObjectsAlphabetically() {
         return modules.stream()
                 .sorted((m1, m2) -> m1.getName().compareToIgnoreCase(m2.getName()))
                 .collect(Collectors.toList());
     }
 
-    public ModuleBase getModule(Class<? extends ModuleBase> aClass) {
+    @Override
+    public ModuleBase get(String name) {
         return modules.stream()
-                .filter(module -> module.getClass() == aClass)
+                .filter(module -> module.getName().equalsIgnoreCase(name))
                 .findAny()
-                .orElseThrow(() -> new RuntimeException("Unable to find Module: " + aClass + "."));
+                .orElseThrow(() -> new RuntimeException("Unable to find " + name + "."));
     }
 
-    public ModuleBase getModule(String moduleName) {
-        return modules.stream()
-                .filter(module -> module.getName().equalsIgnoreCase(moduleName))
-                .findAny()
-                .orElseThrow(() -> new RuntimeException("Unable to find Module: " + moduleName + "."));
-    }
-
-    public SettingBase<?> getSettingByName(ModuleBase module, String settingName) {
+    public SettingBase<?> getSetting(ModuleBase module, String settingName) {
         return module.getSettings().stream()
                 .filter(setting -> setting.getName().equalsIgnoreCase(settingName))
                 .findAny()

@@ -6,6 +6,7 @@ import io.github.underware.config.directory.DirectoryManager;
 import io.github.underware.event.ForgeEventHandler;
 import io.github.underware.module.ModuleManager;
 
+// TODO: 5/5/22 Stop using the core package as a masterclass for random stuff.
 public enum SingletonInitializer {
 
     INSTANCE;

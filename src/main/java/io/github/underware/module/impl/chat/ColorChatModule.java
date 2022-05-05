@@ -8,9 +8,6 @@ import io.github.underware.module.setting.impl.EnumSetting;
 import net.minecraftforge.client.event.ClientChatEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
-/**
- * @author CreepyOrb924
- */
 public class ColorChatModule extends ModuleBase {
 
     private final EnumSetting<Modes> mode = new EnumSetting<>("Mode", "The type of color-chat to use.", Modes.CLASSIC);

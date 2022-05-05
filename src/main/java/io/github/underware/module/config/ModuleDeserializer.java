@@ -48,7 +48,7 @@ public class ModuleDeserializer {
         }
 
         JsonElement jsonElement = jsonObject.get("value");
-        new SettingValueParser(setting).parseStringValue(jsonElement.getAsString());
+        new SettingValueParser(setting).parseValue(jsonElement.getAsString());
     }
 
 }

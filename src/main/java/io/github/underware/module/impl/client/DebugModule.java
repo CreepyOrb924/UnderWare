@@ -27,4 +27,5 @@ public class DebugModule extends ModuleBase {
         ChatUtil.sendLogger(LoggerType.SUCCESS, "Disabled debug mode.");
         Globals.INSTANCE.debug = false;
     }
+
 }

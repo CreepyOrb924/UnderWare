@@ -20,9 +20,9 @@ public class ModuleSettingCommand extends CommandBase {
             sendUsageFormatted();
         }
 
-        ModuleBase module = ModuleManager.INSTANCE.getModule(args[0]);
-        SettingBase<?> setting = ModuleManager.INSTANCE.getSettingByName(module, args[1]);
-        new SettingValueParser(setting).parseStringValue(args[2]);
+        ModuleBase module = ModuleManager.INSTANCE.get(args[0]);
+        SettingBase<?> setting = ModuleManager.INSTANCE.getSetting(module, args[1]);
+        new SettingValueParser(setting).parseValue(args[2]);
 
         ChatUtil.sendLogger(LoggerType.SUCCESS, "Set setting: {} to: {}.", setting, args[2]);
     }
