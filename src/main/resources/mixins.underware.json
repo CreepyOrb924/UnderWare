@@ -1,5 +1,6 @@
 {
   "compatibilityLevel": "JAVA_8",
+  "minVersion": "0.7",
   "package": "io.github.underware.mixin",
   "mixins": [
     "network.NetworkManagerMixin"
