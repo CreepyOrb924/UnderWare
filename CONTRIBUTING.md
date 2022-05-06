@@ -56,7 +56,7 @@ The steps are for Intellij, but it should be a similar process for other IDEAs.
 If you have noticed a bug in UnderWare, please open an issue
 at [CreepyOrb924/UnderWare](https://github.com/CreepyOrb924/UnderWare/issues/new).
 
-Please fill out the template and provide enough enformation to recrate the bug.
+Please fill out the template and provide enough information to recreate the bug.
 
 ## Priorities
 
