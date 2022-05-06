@@ -11,7 +11,7 @@ Only Java 8 is supported. You can download it from [here](https://adoptopenjdk.n
 
 **Windows:** [GitBash](https://gitforwindows.org/).
 
-**Linux:** Git.
+**Linux:** [Git](https://git-scm.com/).
 
 #### Run
 
