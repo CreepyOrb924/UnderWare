@@ -3,6 +3,7 @@
   "minVersion": "0.7",
   "package": "io.github.underware.mixin",
   "mixins": [
+    "fml.client.SplashProgressMixin",
     "network.NetworkManagerMixin"
   ],
   "client": [
